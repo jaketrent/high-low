@@ -1,0 +1,60 @@
+<html>
+
+  <head>
+    <title>High-Low</title>
+  </head>
+
+  <body>
+
+    <h1>High-Low is awesome</h1>
+
+    <div>
+      Is the number higher or lower than
+      <span id="compare"></span>
+      ?
+    </div>
+    <button id="low">Low</button>
+    <button id="high">High</button>
+
+
+    <script>
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      var previous = getRandomInt(0, 100)
+      var num = getRandomInt(0, 100)
+      var compare = document.getElementById('compare')
+      var low = document.getElementById('low')
+      var high = document.getElementById('high')
+
+      function success() {
+        previous = getRandomInt(0, 100)
+        num = getRandomInt(0, 100)
+        compare.innerHTML = previous
+      }
+
+      low.addEventListener('click', function () {
+        if (num < previous) {
+          alert('Correct, it was lower!')
+          success()
+        } else  {
+          alert('Sorry, try again.')
+        }
+      })
+      high.addEventListener('click', function () {
+        if (num > previous) {
+          alert('Correct, it was higher!')
+          success()
+        } else  {
+          alert('Sorry, try again.')
+        }
+      })
+
+      compare.innerHTML = previous
+
+
+    </script>
+  </body>
+
+</html>
