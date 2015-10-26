@@ -53,6 +53,22 @@
       .turnstatus.success {
         color: green;
       }
+      .win {
+        position: fixed;
+        top: 50px;
+        right: 50px;
+        bottom: 50px;
+        left: 50px;
+        background: rgba(0, 0, 0, .8);
+        line-height: calc(100vh - 100px);
+        text-align: center;
+        font-size: 50px;
+        font-weight: 100;
+        display: none;
+      }
+      .win.show {
+        display: block;
+      }
     </style>
   </head>
 
@@ -73,6 +89,12 @@
       <div id="turnstatus" class="turnstatus" role="alert"></div>
     </div>
 
+    <div id="win" class="win" aria-hidden="true">
+      You won in
+      <span id="seconds"></span>
+      seconds!
+    </div>
+
     <script>
       function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -80,13 +102,24 @@
 
       var compareTo = getRandomInt(0, 100)
       var num = getRandomInt(0, 100)
+
       var compare = document.getElementById('compare')
       var low = document.getElementById('low')
       var high = document.getElementById('high')
       var turnstatus = document.getElementById('turnstatus')
+      var win = document.getElementById('win')
+      var seconds = document.getElementById('seconds')
+
       var statusTimer
+      var score = 0
+      var goalScore = 2
+      var startTime = new Date()
 
       function success() {
+        score++
+        if (score >= goalScore) {
+          end()
+        }
         compareTo = getRandomInt(0, 100)
         num = getRandomInt(0, 100)
         compare.innerHTML = compareTo
@@ -99,12 +132,22 @@
       }
 
       function error() {
+        score--
         clearTimeout(statusTimer)
         turnstatus.innerHTML = 'Nope, try again. :('
         turnstatus.classList.remove('success')
         statusTimer = setTimeout(function () {
           turnstatus.innerHTML = ''
         }, 1000)
+      }
+
+      function end() {
+        var diffTime = new Date() - startTime
+        diffNoMs = diffTime /= 1000
+        win.classList.add('show')
+        win.removeAttribute('aria-hidden')
+        win.focus()
+        seconds.innerHTML = Math.round(diffNoMs % 60)
       }
 
       low.addEventListener('click', function () {
@@ -114,6 +157,7 @@
           error()
         }
       })
+
       high.addEventListener('click', function () {
         if (num > compareTo) {
           success()
