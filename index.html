@@ -49,13 +49,15 @@
         padding-top: 15px;
         font-size: 12px;
       }
-      .turnstatus {
+      .gamestatus {
         position: absolute;
         top: 318px;
         right: -222px;
         font-size: 28px;
         width: 200px;
         text-align: left;
+      }
+      .turnstatus {
         color: red;
       }
       .turnstatus.success {
@@ -95,7 +97,11 @@
       <button id="high">Higher</button>
       <div class="number" id="compare"></div>
       <button id="low">Lower</button>
-      <div id="turnstatus" class="turnstatus" role="alert"></div>
+      <div class="gamestatus">
+        Score:
+        <span id="score"></span>
+        <span id="turnstatus" class="turnstatus" role="alert"></span>
+      </div>
     </div>
 
     <div id="win" class="win" aria-hidden="true">
@@ -119,6 +125,7 @@
       var win = document.getElementById('win')
       var seconds = document.getElementById('seconds')
       var goal = document.getElementById('goal')
+      var scoreDisplay = document.getElementById('score')
 
       var statusTimer
       var score = 0
@@ -127,6 +134,7 @@
 
       function success() {
         score++
+        scoreDisplay.innerHTML = score
         if (score >= goalScore) {
           end()
         }
@@ -134,7 +142,7 @@
         num = getRandomInt(0, 100)
         compare.innerHTML = compareTo
         clearTimeout(statusTimer)
-        turnstatus.innerHTML = 'Success! :)'
+        turnstatus.innerHTML = '+1!'
         turnstatus.classList.add('success')
         statusTimer = setTimeout(function () {
           turnstatus.innerHTML = ''
@@ -143,8 +151,9 @@
 
       function error() {
         score--
+        scoreDisplay.innerHTML = score
         clearTimeout(statusTimer)
-        turnstatus.innerHTML = 'Nope, try again. :('
+        turnstatus.innerHTML = '-1  :('
         turnstatus.classList.remove('success')
         statusTimer = setTimeout(function () {
           turnstatus.innerHTML = ''
@@ -178,6 +187,7 @@
 
       compare.innerHTML = compareTo
       goal.innerHTML = goalScore
+      scoreDisplay.innerHTML = score
 
     </script>
   </body>
