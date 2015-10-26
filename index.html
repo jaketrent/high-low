@@ -2,20 +2,71 @@
 
   <head>
     <title>High-Low</title>
+
+    <style>
+      body {
+        background: #3a3a3a;
+        color: #fff;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      h1 {
+        font-size: 50px;
+        font-weight: 100;
+      }
+      button {
+        height: 282px;
+        width: 355px;
+        border: none;
+        font-size: 40px;
+      }
+      #high {
+        background: url(arrow-up.png) center no-repeat;
+      }
+      #low {
+        background: url(arrow-down.png) center no-repeat;
+      }
+      .number {
+        font-size: 100px;
+      }
+      .container {
+        position: relative;
+        display: inline-block;
+      }
+      .prompt {
+        position: absolute;
+        top: 303px;
+        left: -370px;
+        font-size: 30px;
+        text-align: right;
+        width: 350px;
+      }
+      .turnstatus {
+        position: absolute;
+        top: 318px;
+        right: -222px;
+        font-size: 28px;
+        width: 200px;
+        text-align: left;
+        color: red;
+      }
+      .turnstatus.success {
+        color: green;
+      }
+    </style>
   </head>
 
   <body>
 
-    <h1>High-Low is awesome</h1>
+    <h1>High or Low Game</h1>
 
-    <div>
-      Is the number higher or lower than
-      <span id="compare"></span>
-      ?
+    <div class="container">
+      <div class="prompt">Guess if the number is higher or lower!</div>
+      <button id="high">High</button>
+      <div class="number" id="compare"></div>
+      <button id="low">Low</button>
+      <div id="turnstatus" class="turnstatus"></div>
     </div>
-    <button id="low">Low</button>
-    <button id="high">High</button>
-
 
     <script>
       function getRandomInt(min, max) {
@@ -27,32 +78,46 @@
       var compare = document.getElementById('compare')
       var low = document.getElementById('low')
       var high = document.getElementById('high')
+      var turnstatus = document.getElementById('turnstatus')
+      var statusTimer
 
       function success() {
         previous = getRandomInt(0, 100)
         num = getRandomInt(0, 100)
         compare.innerHTML = previous
+        clearTimeout(statusTimer)
+        turnstatus.innerHTML = 'Success! :)'
+        turnstatus.classList.add('success')
+        statusTimer = setTimeout(function () {
+          turnstatus.innerHTML = ''
+        }, 1000)
+      }
+
+      function error() {
+        clearTimeout(statusTimer)
+        turnstatus.innerHTML = 'Nope, try again. :('
+        turnstatus.classList.remove('success')
+        statusTimer = setTimeout(function () {
+          turnstatus.innerHTML = ''
+        }, 1000)
       }
 
       low.addEventListener('click', function () {
         if (num < previous) {
-          alert('Correct, it was lower!')
           success()
         } else  {
-          alert('Sorry, try again.')
+          error()
         }
       })
       high.addEventListener('click', function () {
         if (num > previous) {
-          alert('Correct, it was higher!')
           success()
         } else  {
-          alert('Sorry, try again.')
+          error()
         }
       })
 
       compare.innerHTML = previous
-
 
     </script>
   </body>
