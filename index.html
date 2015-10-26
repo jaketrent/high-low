@@ -13,6 +13,8 @@
       h1 {
         font-size: 50px;
         font-weight: 100;
+        text-shadow: 1px 1px 2px black;
+        text-transform: uppercase;
       }
       button {
         height: 282px;
@@ -33,13 +35,19 @@
         position: relative;
         display: inline-block;
       }
-      .prompt {
+      .aside {
         position: absolute;
         top: 173px;
         left: -400px;
-        font-size: 30px;
         text-align: right;
         width: 350px;
+      }
+      .prompt {
+        font-size: 30px;
+      }
+      .instruct {
+        padding-top: 15px;
+        font-size: 12px;
       }
       .turnstatus {
         position: absolute;
@@ -76,11 +84,12 @@
 
 
     <div class="container">
-      <div class="prompt">
+      <div class="aside">
         <h1>
           High/Low Game
         </h1>
-        Am I thinking of a number that's higher or lower?
+        <div class="prompt">Am I thinking of a number that's higher or lower?</div>
+        <div class="instruct">Numbers 0-100, Fastest to <span id="goal"></span> wins.</div>
       </div>
 
       <button id="high">Higher</button>
@@ -109,6 +118,7 @@
       var turnstatus = document.getElementById('turnstatus')
       var win = document.getElementById('win')
       var seconds = document.getElementById('seconds')
+      var goal = document.getElementById('goal')
 
       var statusTimer
       var score = 0
@@ -167,6 +177,7 @@
       })
 
       compare.innerHTML = compareTo
+      goal.innerHTML = goalScore
 
     </script>
   </body>
