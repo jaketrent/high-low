@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title>High-Low</title>
+    <title>High/Low Game</title>
 
     <style>
       body {
@@ -35,8 +35,8 @@
       }
       .prompt {
         position: absolute;
-        top: 303px;
-        left: -370px;
+        top: 173px;
+        left: -400px;
         font-size: 30px;
         text-align: right;
         width: 350px;
@@ -58,13 +58,18 @@
 
   <body>
 
-    <h1>High or Low Game</h1>
 
     <div class="container">
-      <div class="prompt">Guess if the number is higher or lower!</div>
-      <button id="high">High</button>
+      <div class="prompt">
+        <h1>
+          High/Low Game
+        </h1>
+        Am I thinking of a number that's higher or lower?
+      </div>
+
+      <button id="high">Higher</button>
       <div class="number" id="compare"></div>
-      <button id="low">Low</button>
+      <button id="low">Lower</button>
       <div id="turnstatus" class="turnstatus"></div>
     </div>
 
@@ -73,7 +78,7 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
 
-      var previous = getRandomInt(0, 100)
+      var compareTo = getRandomInt(0, 100)
       var num = getRandomInt(0, 100)
       var compare = document.getElementById('compare')
       var low = document.getElementById('low')
@@ -82,9 +87,9 @@
       var statusTimer
 
       function success() {
-        previous = getRandomInt(0, 100)
+        compareTo = getRandomInt(0, 100)
         num = getRandomInt(0, 100)
-        compare.innerHTML = previous
+        compare.innerHTML = compareTo
         clearTimeout(statusTimer)
         turnstatus.innerHTML = 'Success! :)'
         turnstatus.classList.add('success')
@@ -103,21 +108,21 @@
       }
 
       low.addEventListener('click', function () {
-        if (num < previous) {
+        if (num < compareTo) {
           success()
         } else  {
           error()
         }
       })
       high.addEventListener('click', function () {
-        if (num > previous) {
+        if (num > compareTo) {
           success()
         } else  {
           error()
         }
       })
 
-      compare.innerHTML = previous
+      compare.innerHTML = compareTo
 
     </script>
   </body>
