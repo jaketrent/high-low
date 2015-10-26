@@ -57,7 +57,7 @@ function end() {
   win.focus()
   seconds.innerHTML = secs
 
-  var highScore = parseInt(localStorage.getItem('hl-highscore'), 10) || 0
+  var highScore = parseInt(localStorage.getItem('hl-highscore'), 10) || Infinity
   if (secs < highScore) {
     localStorage.setItem('hl-highscore', secs)
     highScore = secs
