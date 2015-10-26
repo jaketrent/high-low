@@ -1,0 +1,83 @@
+body {
+  background: #3a3a3a;
+  color: #fff;
+  text-align: center;
+  font-family: sans-serif;
+}
+h1 {
+  font-size: 50px;
+  font-weight: 100;
+  text-shadow: 1px 1px 2px black;
+  text-transform: uppercase;
+}
+button {
+  height: 282px;
+  width: 355px;
+  border: none;
+  font-size: 40px;
+}
+#high {
+  background: url(arrow-up.png) center no-repeat;
+}
+#low {
+  background: url(arrow-down.png) center no-repeat;
+}
+.number {
+  font-size: 100px;
+}
+.container {
+  position: relative;
+  display: inline-block;
+}
+.aside {
+  position: absolute;
+  top: 173px;
+  left: -400px;
+  text-align: right;
+  width: 350px;
+}
+.prompt {
+  font-size: 30px;
+}
+.instruct {
+  padding-top: 15px;
+  font-size: 12px;
+}
+.gamestatus {
+  position: absolute;
+  top: 318px;
+  right: -222px;
+  font-size: 28px;
+  width: 200px;
+  text-align: left;
+}
+.turnstatus {
+  color: red;
+}
+.turnstatus.success {
+  color: green;
+}
+.win {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  bottom: 50px;
+  left: 50px;
+  background: rgba(0, 0, 0, .8);
+  text-align: center;
+  font-size: 50px;
+  font-weight: 100;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+}
+.win.show {
+  display: flex;
+}
+.winInner {
+  display: inline-block;
+  margin: 0 auto;
+}
+.fastest {
+  font-size: 16px;
+}
