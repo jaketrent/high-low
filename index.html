@@ -70,14 +70,22 @@
         bottom: 50px;
         left: 50px;
         background: rgba(0, 0, 0, .8);
-        line-height: calc(100vh - 100px);
         text-align: center;
         font-size: 50px;
         font-weight: 100;
         display: none;
+        flex-direction: row;
+        align-items: center;
       }
       .win.show {
-        display: block;
+        display: flex;
+      }
+      .winInner {
+        display: inline-block;
+        margin: 0 auto;
+      }
+      .fastest {
+        font-size: 16px;
       }
     </style>
   </head>
@@ -105,9 +113,12 @@
     </div>
 
     <div id="win" class="win" aria-hidden="true">
-      You won in
-      <span id="seconds"></span>
-      seconds!
+      <div class="winInner">
+        You won in
+        <span id="seconds"></span>
+        seconds!
+        <div class="fastest">(fastest time is <span id="highScore"></span>s)</div>
+      </div>
     </div>
 
     <script>
@@ -126,6 +137,7 @@
       var seconds = document.getElementById('seconds')
       var goal = document.getElementById('goal')
       var scoreDisplay = document.getElementById('score')
+      var highScoreDisplay = document.getElementById('highScore')
 
       var statusTimer
       var score = 0
@@ -162,11 +174,19 @@
 
       function end() {
         var diffTime = new Date() - startTime
-        diffNoMs = diffTime /= 1000
+        var diffNoMs = diffTime /= 1000
+        var secs = Math.round(diffNoMs % 60)
         win.classList.add('show')
         win.removeAttribute('aria-hidden')
         win.focus()
-        seconds.innerHTML = Math.round(diffNoMs % 60)
+        seconds.innerHTML = secs
+
+        var highScore = parseInt(localStorage.getItem('hl-highscore'), 10) || 0
+        if (secs < highScore) {
+          localStorage.setItem('hl-highscore', secs)
+          highScore = secs
+        }
+        highScoreDisplay.innerHTML = highScore
       }
 
       low.addEventListener('click', function () {
