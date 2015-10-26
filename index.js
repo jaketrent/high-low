@@ -65,19 +65,29 @@ function end() {
   highScoreDisplay.innerHTML = highScore
 }
 
-low.addEventListener('click', function () {
+function guessLow() {
   if (num < compareTo) {
     success()
   } else  {
     error()
   }
-})
+}
 
-high.addEventListener('click', function () {
+function guessHigh() {
   if (num > compareTo) {
     success()
   } else  {
     error()
+  }
+}
+
+low.addEventListener('click', guessLow)
+high.addEventListener('click', guessHigh)
+document.body.addEventListener('keyup', function (evt) {
+  if (evt.which === 38) {
+    guessHigh()
+  } else if (evt.which === 40) {
+    guessLow()
   }
 })
 
